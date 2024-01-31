@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php include('function.php'); ?>
 <html lang="en">
 
 <head>
@@ -36,14 +37,16 @@
                 </div>
                 <div class="modal-body">
                     <form action="" method="post" enctype="multipart/form-data">
-                        <input type="text" name="" id="" class="form-control" placeholder="Enter name">
-                        <input type="text" name="" id="" class="form-control mt-3" placeholder="Enter qty">
-                        <input type="text" name="" id="" class="form-control  mt-3" placeholder="Enter price">
-                        <input type="file" name="" id="" class="form-control  mt-3" placeholder="Choose image">
+                        <input type="text" name="name" id="" class="form-control" placeholder="Enter name" required>
+                        <input type="text" name="qty" id="" class="form-control mt-3" placeholder="Enter qty" required>
+                        <input type="text" name="price" id="" class="form-control  mt-3" placeholder="Enter price"
+                            required>
+                        <input type="file" name="thumbnail" id="" class="form-control  mt-3" placeholder="Choose image"
+                            required>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                            <button id="btnSave" type="button" class="btn btn-primary">Save</button>
-                            <button id="btnUpdate" type="button" class="btn btn-success">Update</button>
+                            <button name="btnSave" id="btnSave" type="submit" class="btn btn-primary">Save</button>
+                            <button id="btnUpdate" type="submit" class="btn btn-success">Update</button>
                         </div>
                     </form>
                 </div>
@@ -112,5 +115,4 @@
         })
     });
 </script>
-
 </html>
