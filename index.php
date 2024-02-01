@@ -64,8 +64,9 @@
                 </div>
                 <div class="modal-body">
                     <form action="" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="tmp_id" id="id">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button id="btnDelete" type="button" class="btn btn-primary">Yes,Delete its.</button>
+                        <button name="btnDelete" id="btnDelete" type="submit" class="btn btn-primary">Yes,Delete its.</button>
                     </form>
                 </div>
             </div>
@@ -83,21 +84,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Coca</td>
-                <td>4</td>
-                <td>1.2</td>
-                <td>
-                    <img src="image/coca-cola-clouds.jpg" width="100" alt="">
-                </td>
-                <td>
-                    <button id="openUpdate" class="btn btn-warning" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">Update</button>
-                    <button class="btn btn-danger" data-bs-toggle="modal"
-                        data-bs-target="#exampleModalDelete">Delete</button>
-                </td>
-            </tr>
+            <?php readData(); ?>
         </tbody>
     </table>
 </body>
@@ -113,6 +100,11 @@
             $("#btnSave").hide();
             $("#btnUpdate").show();
         })
+        $("body").on("click", "#openDelete", function () {
+            var id = $(this).parents("tr").find("td").eq(0).text();
+            $("#id").val(id);
+        })
     });
 </script>
+
 </html>

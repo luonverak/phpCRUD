@@ -48,3 +48,60 @@ function insertData()
     }
 }
 insertData();
+function readData()
+{
+    global $connection;
+    try {
+        $sql = "SELECT * FROM `tbl_product` ORDER BY id DESC";
+        $row = $connection->query($sql);
+        while ($data = mysqli_fetch_assoc($row)) {
+            echo '
+            <tr>
+                <td>' . $data['id'] . '</td>
+                <td>' . $data['name'] . '</td>
+                <td>' . $data['qty'] . '</td>
+                <td>' . $data['price'] . '</td>
+                <td>
+                    <img src="image/' . $data['thumbnail'] . '" width="100" alt="">
+                </td>
+                <td>
+                    <button id="openUpdate" class="btn btn-warning mx-2" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">Update</button>
+                    <button id="openDelete" type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#exampleModalDelete">Delete</button>
+                </td>
+            </tr>
+            ';
+        }
+    } catch (\Throwable $th) {
+        //throw $th;
+    }
+}
+function deleteData()
+{
+    global $connection;
+    if (isset($_POST['btnDelete'])) {
+        $id = $_POST['tmp_id'];
+        try {
+            $sql = "DELETE FROM `tbl_product` WHERE id = '$id'";
+            $result = $connection->query($sql);
+            if($result){
+                echo '
+                <script>
+                    $(document).ready(function(){
+                        swal({
+                            title: "Good job!",
+                            text: "You clicked the button!",
+                            icon: "success",
+                            button: "Aww yiss!",
+                        });
+                    })
+                </script>
+                ';
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+}
+deleteData();
