@@ -37,17 +37,23 @@
                 </div>
                 <div class="modal-body">
                     <form action="" method="post" enctype="multipart/form-data">
-                        <input type="text" name="name" id="" class="form-control" placeholder="Enter name" required>
-                        <input type="text" name="qty" id="" class="form-control mt-3" placeholder="Enter qty" required>
-                        <input type="text" name="price" id="" class="form-control  mt-3" placeholder="Enter price"
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter name" required>
+                        <input type="text" name="qty" id="qty" class="form-control mt-3" placeholder="Enter qty"
                             required>
-                        <input type="file" name="thumbnail" id="" class="form-control  mt-3" placeholder="Choose image"
+                        <input type="text" name="price" id="price" class="form-control  mt-3" placeholder="Enter price"
                             required>
+                        <input type="file" name="thumbnail" id="thumbnail" class="form-control  mt-3"
+                            placeholder="Choose image">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                             <button name="btnSave" id="btnSave" type="submit" class="btn btn-primary">Save</button>
-                            <button id="btnUpdate" type="submit" class="btn btn-success">Update</button>
+                            <button name="btnUpdate" id="btnUpdate" type="submit"
+                                class="btn btn-success">Update</button>
                         </div>
+                        <!-- Hide thumbnail -->
+                        <input type="hidden" name="hide_thumbnail" id="hide_thumbnail">
+                        <!-- Hide Id -->
+                        <input type="hidden" name="hide_id" id="hide_id">
                     </form>
                 </div>
             </div>
@@ -66,7 +72,8 @@
                     <form action="" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="tmp_id" id="id">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button name="btnDelete" id="btnDelete" type="submit" class="btn btn-primary">Yes,Delete its.</button>
+                        <button name="btnDelete" id="btnDelete" type="submit" class="btn btn-primary">Yes,Delete
+                            its.</button>
                     </form>
                 </div>
             </div>
@@ -99,6 +106,17 @@
             $("#title").text("Edit Product Information");
             $("#btnSave").hide();
             $("#btnUpdate").show();
+            var id = $(this).parents("tr").find("td").eq(0).text();
+            var name = $(this).parents("tr").find("td").eq(1).text();
+            var qty = $(this).parents("tr").find("td").eq(2).text();
+            var price = $(this).parents("tr").find("td").eq(3).text();
+            var thumbnail = $(this).parents("tr").find("td:eq(4) img").attr("alt");
+
+            $("#name").val(name);
+            $("#qty").val(qty);
+            $("#price").val(price);
+            $("#hide_thumbnail").val(thumbnail);
+            $("#hide_id").val(id);
         })
         $("body").on("click", "#openDelete", function () {
             var id = $(this).parents("tr").find("td").eq(0).text();

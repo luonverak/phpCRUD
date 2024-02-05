@@ -62,7 +62,7 @@ function readData()
                 <td>' . $data['qty'] . '</td>
                 <td>' . $data['price'] . '</td>
                 <td>
-                    <img src="image/' . $data['thumbnail'] . '" width="100" alt="">
+                    <img src="image/' . $data['thumbnail'] . '" width="100" alt="' . $data['thumbnail'] . '">
                 </td>
                 <td>
                     <button id="openUpdate" class="btn btn-warning mx-2" data-bs-toggle="modal"
@@ -85,7 +85,7 @@ function deleteData()
         try {
             $sql = "DELETE FROM `tbl_product` WHERE id = '$id'";
             $result = $connection->query($sql);
-            if($result){
+            if ($result) {
                 echo '
                 <script>
                     $(document).ready(function(){
@@ -105,3 +105,46 @@ function deleteData()
     }
 }
 deleteData();
+function updateData()
+{
+    global $connection;
+    if (isset($_POST['btnUpdate'])) {
+        $id = $_POST['hide_id'];
+        $name = $_POST['name'];
+        $qty = $_POST['qty'];
+        $price = $_POST['price'];
+        $thumbnail = $_FILES['thumbnail']['name'];
+        if (!empty($thumbnail)) {
+            $thumbnail = rand(1, 100000) . '-' . $thumbnail;
+            move_uploaded_file($_FILES['thumbnail']['tmp_name'], 'image/' . $thumbnail);
+        } else {
+            $thumbnail = $_POST['hide_thumbnail'];
+        }
+        if (!empty($name) && !empty($qty) && !empty($price) && !empty($thumbnail)) {
+            try {
+                $sql = "UPDATE `tbl_product` SET `name`='$name',`qty`='$qty',`price`='$price',`thumbnail`='$thumbnail' WHERE `id`='$id'";
+                $row = $connection->query($sql);
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+            if ($row) {
+                echo '
+                <script>
+                    $(document).ready(function(){
+                        swal({
+                            title: "Good job!",
+                            text: "You clicked the button!",
+                            icon: "success",
+                            button: "Aww yiss!",
+                        });
+                    })
+                </script>
+                ';
+            }
+        } else {
+            echo 00;
+        }
+
+    }
+}
+updateData();
